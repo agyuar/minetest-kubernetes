@@ -50,11 +50,11 @@ spec:
           - |
             apk add --no-cache curl unzip > /dev/null 2>&1;
             GAME=$(echo {{ .Values.gameUrl }} | awk -F "/" '{print $(NF)}');
-            mkdir -p /config/.minetest/games/${GAME};
-            cd /config/.minetest/games/${GAME};
-            curl -L -o game.zip {{ .Values.gameUrl }}/download;
-            unzip game.zip;
-            rm -f game.zip;
+            mkdir -p /config/.minetest/games/;
+            cd /config/.minetest/games/;
+            curl -L -o /tmp/game.zip {{ .Values.gameUrl }}/download;
+            unzip /tmp/game.zip -d /config/.minetest/games/;
+            rm -f /tmp/game.zip;
             mkdir -p /config/.minetest/main-config/;
             echo "default_game = ${GAME}" > /config/.minetest/main-config/minetest.conf
         volumeMounts:
