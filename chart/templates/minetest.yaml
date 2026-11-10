@@ -99,7 +99,7 @@ spec:
           - name: UMASK
             value: "{{ .Values.container.umask }}"
           - name: CLI_ARGS
-            value: "{{ .Values.cliArgs }}{{- if .Values.gameid }} --gameid {{ .Values.gameid }}{{- end }}"
+            value: "{{ .Values.cliArgs }}{{- if .Values.gameid }} --gameid {{ .Values.gameid }}{{- else if .Values.setGame }} --gameid {{ (last (splitList "/" .Values.gameUrl)) }}{{- end }}"
         ports:
           - name: minetest
             containerPort: {{ .Values.minetestPort }}
